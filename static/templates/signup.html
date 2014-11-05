@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<script src="/static/js/signupvalidation.js"></script>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-8 col-sm-offset-2">
+			<h1>Join Now</h1>
+			<form name="signupform" method='POST' action='' onsubmit="return validateForm()"> {% csrf_token %}
+				{% for field in form %}
+				    <div class="fieldWrapper">
+				        {{ field.errors }}
+				        <input 
+				        {% if field.html_name == "password" %}
+				        	type="password"
+				        {% elif field.html_name == "conf_password" %}
+				        	type="password"
+				        {% else %}
+							type="text" 
+						{% endif %} 
+						placeholder='{{ field.label }}' 
+						class='form-control' 
+						name="{{ field.html_name }}"><br>
+				    </div>
+				{% endfor %}
+				<input class='btn btn-success btn-block' type="submit">
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

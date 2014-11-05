@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+	<h1>Welcome to yearBook</h1>
+
+	{% if user.is_authenticated %}
+	  <p>Hello {{ user.first_name }}! Welcome to yearbook</p>
+	{% else %}
+	Not logged in
+	{% endif %}
+
+{% endblock %}

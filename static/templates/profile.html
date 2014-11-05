@@ -1,0 +1,48 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class=" col-xs-3">
+			<div class="row">
+				<img style="width:100%" class="profile-pic img-circle" src="/static/images/{{ var }}.jpg" />
+			</div>
+			<div class="row">
+				<div class="">
+					{% if profile_user.first_name %}
+						{{ profile_user.first_name }} {{ profile_user.last_name }}
+					{% else %}
+						{{ profile_user.username }}
+					{% endif %}
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-9">
+			<div class="container" style="width:100%">
+				<div class="row">
+					<h1>Viewing {{ profile_user.username }}'s profile</h1>
+				</div>
+				<div class="row">
+					<form action="" method="post">{% csrf_token %}
+						<textarea name="content" rows="4" class="form-control"></textarea><br>
+						<input type="submit" value="Post" class="btn btn-primary">
+					</form>
+				</div>
+				<hr>
+				<div class="row">
+					<h3>Yearbook entries</h3>
+					{% for entry in entries %}
+						<div class="row well">
+							<p>Posted by: <a href="{% url 'users' %}?user={{ entry.sender.username }}">{{ entry.sender.username }}</a></p>
+							<p>{{ entry.content }}</p>
+							<h6>Posted at: {{ entry.posted }}</h6>
+
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
